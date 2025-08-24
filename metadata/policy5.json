@@ -1,0 +1,8 @@
+{
+    "policyName": "Travel Insurance",
+    "premiumAmount": "800",
+    "duration": "90 days",
+    "coverage": "Medical emergencies, flight cancellations, lost luggage",
+    "terms": "Only valid for international travel. Must show travel documents.",
+    "issuer": "MyInsuranceCo"
+}

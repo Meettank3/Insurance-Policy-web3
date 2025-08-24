@@ -1,36 +1,36 @@
 // SPDX-License-Identifier: MIT
-pragma solidity  ^0.8.28;
+pragma solidity ^0.8.28;
 
-// creating struct for policys
-struct Policy{
-    //uint256 policyId;
-    string policyDetails;
-    uint256 premiumAmount;   // fixed premium cost
-    uint256 duration;        // in seconds or days
+// creating struct for policies
+struct Policy {
+    string metadata;
     bool active;
 }
 
-contract PolicyManagement{
+// Example baseURI: "https://ipfs.io/ipfs/QmSGn7kmYExizUFTwUGdrTyAx4f6aT8PZcJ86m8CEVqXvZ/"
+contract PolicyManagement {
 
-    // giving variables to parties
-    mapping(uint256 => Policy) public policies; //uint256 is policyId
+    mapping(uint256 => Policy) public policies; // uint256 is policyId
     mapping(address => uint256[]) public holderPolicies; 
+    string public baseURI;
+
+    event PolicyCreated(uint256 indexed policyId, string metadataURI);
+
+    constructor(string memory _baseURI) {
+        baseURI = _baseURI; // Pass folder CID link ending with "/"
+    }
 
     function createPolicy(
         uint256 _policyId,
-        string memory _policyDetails,
-        uint256 _premiumAmount,
-        bool _active,
-        uint256 _duration
+        string memory _fileName
     ) public {        
+        string memory fullURI = string(abi.encodePacked(baseURI, _fileName));
+
         policies[_policyId] = Policy({
-            policyDetails: _policyDetails,
-            premiumAmount: _premiumAmount, // default value, can be set later
-            active: _active,
-            duration: _duration // default value, can be set later
+            metadata: fullURI,
+            active: true
         });
+
+        emit PolicyCreated(_policyId, fullURI);
     }
-
-    
-
 }

@@ -1,0 +1,8 @@
+{
+    "policyName": "Vehicle Insurance - Standard",
+    "premiumAmount": "1500",
+    "duration": "180 days",
+    "coverage": "Accidental damage up to $20,000, third-party liability",
+    "terms": "Excludes intentional damage and expired licenses.",
+    "issuer": "MyInsuranceCo"
+}

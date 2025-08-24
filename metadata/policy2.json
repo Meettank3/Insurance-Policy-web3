@@ -1,0 +1,8 @@
+{
+    "policyName": "Comprehensive Health Insurance",
+    "premiumAmount": "2500",
+    "duration": "365 days",
+    "coverage": "Hospitalization up to $50,000, Medicines, Surgeries",
+    "terms": "Covers all medical conditions except cosmetic surgeries.",
+    "issuer": "MyInsuranceCo"
+}

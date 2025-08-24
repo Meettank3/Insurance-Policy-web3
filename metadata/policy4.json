@@ -1,0 +1,8 @@
+{
+    "policyName": "Life Insurance - Basic",
+    "premiumAmount": "5000",
+    "duration": "10 years",
+    "coverage": "Life coverage of $100,000",
+    "terms": "Beneficiary must be declared at purchase. Suicide not covered within first year.",
+    "issuer": "MyInsuranceCo"
+}
