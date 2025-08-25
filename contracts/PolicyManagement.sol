@@ -1,32 +1,31 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
+pragma solidity ^0.8.0;
 
-// creating struct for policies
-struct Policy {
-    //uint256 id;
-    address holder;
-    uint256 premiumAmount; // per-period or total (decide one)
-    uint256 startDate;
-    uint256 endDate;
-    bool active;  
-}
+//importing OpenZeppelin contracts
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+
+// creating struct for policiess
 
 // Example baseURI: "https://ipfs.io/ipfs/QmSGn7kmYExizUFTwUGdrTyAx4f6aT8PZcJ86m8CEVqXvZ/"
-contract PolicyManagement {
+contract PolicyManagement is ERC721URIStorage{
 
-    // creating variables 
-    uint256 public nextPolicyId;
-    
-    mapping(uint256 => Policy[]) public policiesId;
-    mapping(address => mapping(uint256 => Policy)) public holderPolicies;
+    using Counters for Counters.Counter; // Correctly using Counters library
+    Counters.Counter private _tokenIds;
 
-    modifier onlyPolicyHolder(address _holder, uint256 _policyId) {
-        require(holderPolicies[_holder][_policyId].holder == msg.sender, "Only Policy Holder can call this function");
-        _;
+    constructor() ERC721("Policy Management","Policy"){}
+
+    function mint(string memory _tokenURI) public returns (uint256){        
+        _tokenIds.increment();
+        uint256 newItemId = _tokenIds.current();
+        _mint(msg.sender, newItemId);
+        _setTokenURI(newItemId, _tokenURI);
+        return newItemId;
     }
 
-    function _exists(uint256 policyId) internal view returns (bool) { 
-        
+    function totalSupply() public view returns (uint256){
+        return _tokenIds.current();
     }
 
 }
