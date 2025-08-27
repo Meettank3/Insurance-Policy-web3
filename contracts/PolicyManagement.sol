@@ -14,9 +14,16 @@ contract PolicyManagement is ERC721URIStorage{
     using Counters for Counters.Counter; // Correctly using Counters library
     Counters.Counter private _tokenIds;
 
-    constructor() ERC721("Policy Management","Policy"){}
+    uint256 public constant Max_supply = 5;
+    string public baseURI;
 
-    function mint(string memory _tokenURI) public returns (uint256){        
+    constructor( string memory _baseURI) ERC721("Policy Management","Policy"){
+        baseURI = _baseURI;
+    }
+
+    function mint(string memory _tokenURI) public returns (uint256){       
+        require(_tokenIds.current() < Max_supply, "Max supply reached");
+        
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         _mint(msg.sender, newItemId);
