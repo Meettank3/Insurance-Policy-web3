@@ -12,7 +12,7 @@ describe('PolicyManagement', () => {
 
     beforeEach(async () => {
         const PolicyManagement = await ethers.getContractFactory('PolicyManagement');
-        policyManagement = await PolicyManagement.deploy();
+        policyManagement = await PolicyManagement.deploy("https://ipfs.io/ipfs/QmSGn7kmYExizUFTwUGdrTyAx4f6aT8PZcJ86m8CEVqXvZ/");
         await policyManagement.waitForDeployment();
         //console.log("contract Deployed", policyManagement);
     });
@@ -30,16 +30,14 @@ describe('PolicyManagement', () => {
     */
     it("Minting ", async () => {
 
-        for (let i = 1; i <= policyManagement.totalSupplyg(); i++) {
-            const metadataURI = `https://ipfs.io/ipfs/QmSGn7kmYExizUFTwUGdrTyAx4f6aT8PZcJ86m8CEVqXvZ/policy${i}.json`;
-            
+        for (let i = 1; i <=5 ; i++) {            
+            const metadataURI = `https://ipfs.io/ipfs/QmSGn7kmYExizUFTwUGdrTyAx4f6aT8PZcJ86m8CEVqXvZ/policy${i}.json`;            
             const tx = await policyManagement.mint(metadataURI);
-            const receipt = await tx.wait();
-            
-            console.log(`Minted Policy ${i}:`);
-
-        }
-        
+            await tx.wait();
+            //const tokenURI = await policyManagement.tokenURI(i);
+            console.log(`Minted Policy ${i}:`,metadataURI);
+        }        
+        console.log("totalSupply fun: ",await policyManagement.totalSupply());
     });
     
 })
