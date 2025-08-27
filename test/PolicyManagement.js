@@ -24,20 +24,15 @@ describe('PolicyManagement', () => {
     });
 
     // this should mint policies which are included in my ipfs folder only
-
-    /*
-    i want to check that it should not mint more policys which are not in my ipfs folde for ex in my folder i have 5 policy it should not mine more than 5 policy's
-    */
     it("Minting ", async () => {
-
         for (let i = 1; i <=5 ; i++) {            
             const metadataURI = `https://ipfs.io/ipfs/QmSGn7kmYExizUFTwUGdrTyAx4f6aT8PZcJ86m8CEVqXvZ/policy${i}.json`;            
             const tx = await policyManagement.mint(metadataURI);
             await tx.wait();
             //const tokenURI = await policyManagement.tokenURI(i);
-            console.log(`Minted Policy ${i}:`,metadataURI);
+            console.log(`Minted Policy ${i}:`,await metadataURI);
         }        
-        console.log("totalSupply fun: ",await policyManagement.totalSupply());
+        //console.log("totalSupply fun: ",await policyManagement.totalSupply());
     });
     
 })
